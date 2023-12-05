@@ -45,7 +45,8 @@ st.subheader('Step 2: Click to get your recommendations')
 if st.button('Get Recommendations'):
     top_movies = get_top_movies_by_genre(movies, genre)
     for i, row in top_movies.iterrows():
-        st.markdown(row['image_url'], unsafe_allow_html=True)
+        st.image(f'{row["image_url"]}')
+        st.write(f'{row["Title"]}')
         st.write('---')
      
     
