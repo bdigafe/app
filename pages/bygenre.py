@@ -21,7 +21,7 @@ def load_movies():
     df = pd.read_csv('./data/top10_movies.csv')
     df = df.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
     
-    df['image_url'] = df.apply(lambda m: f"./images/{m.MovieID}.jpg", axis=1)
+    df['image_url'] = df.apply(lambda m: f"./pages/images/{m.MovieID}.jpg", axis=1)
     return df
 
 @st.cache_data
