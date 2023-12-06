@@ -34,12 +34,8 @@ def get_top_movies_by_genre(df, genre):
 # Load Top Movies
 movies = load_movies()
 
-# Title
-st.sidebar.header("Movie Recommender")
-st.sidebar.text("Select a genre and click the recommendations button")
-
 # Selection
-genre = st.selectbox('Genres', movies['Genres'].unique())
+genre = st.selectbox('Select Genres', movies['Genres'].unique())
 
 # Render recommendation
 if st.button('Get Recommendations'):
