@@ -1,11 +1,11 @@
 import streamlit as st
-from st_pages import Page, add_page_title, show_pages, show_pages_from_config
+from st_pages import Page, add_page_title, show_pages
 
-st.set_page_config(
-    page_title="Home",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# st.set_page_config(
+#     page_title="Home",
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
 
 show_pages(
     [
@@ -14,9 +14,6 @@ show_pages(
         Page("pages/recommender.py", "By Rating", "🎬"),
     ]
 )
-
-
-show_pages_from_config()
 
 st.markdown("""
     ## Movie Recommendation Demo
