@@ -1,19 +1,17 @@
 import streamlit as st
 from st_pages import Page, add_page_title, show_pages
 
-# st.set_page_config(
-#     page_title="Home",
-#     layout="wide",
-#     initial_sidebar_state="expanded",
-# )
-
-"## Declaring the pages in your app:"
+st.set_page_config(
+    page_title="Home",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 show_pages(
     [
         Page("main-page.py", "Home", "🏠"),
-        Page("pages/bygenres.py", "By Genre", "🎬"),
-        Page("pages/recommender.py", "By Rating", "🎬"),
+        Page("pages/bygenres.py", "Movie - By Genre"),
+        Page("pages/recommender.py", "Movie- By Rating"),
     ]
 )
 
