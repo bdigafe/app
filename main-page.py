@@ -7,10 +7,12 @@ from st_pages import Page, add_page_title, show_pages
 #     initial_sidebar_state="expanded",
 # )
 
+"## Declaring the pages in your app:"
+
 show_pages(
     [
         Page("main-page.py", "Home", "🏠"),
-        Page("pages/bygenre.py", "By Genre", "🎬"),
+        Page("pages/bygenres.py", "By Genre", "🎬"),
         Page("pages/recommender.py", "By Rating", "🎬"),
     ]
 )
