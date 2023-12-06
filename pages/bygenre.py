@@ -44,11 +44,13 @@ st.subheader('Step 2: Click to get your recommendations')
 # Render recommendation
 if st.button('Get Recommendations'):
     top_movies = get_top_movies_by_genre(movies, genre)
-    colImage, colInfo = st.columns([2, 1])
+    cols = st.columns([2, 2, 2])
                                    
     for i, row in top_movies.iterrows():
-        colImage.image(f'{row.image_url}')
-        colInfo.write(f'{row.Title}')
-
+        if (i+1) % 3 == 0:
+            st.write('---')
+        cols[i % 3].image(f'{row.image_url}')
+        cols[i % 3].write(f'{row.Title}')
+        
      
     
