@@ -32,7 +32,7 @@ def get_top_movies_by_genre(df, genre):
 movies = load_movies()
 
 # Title
-st.sidebar.header("Movie Recommender")
+st.sidebar.header("Movie Recommender 1")
 
 # Selection
 st.subheader('Step 1: Select a Genre')
