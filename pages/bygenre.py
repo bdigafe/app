@@ -8,7 +8,10 @@ movies_column_config = {
 }
 
 st.set_page_config(
-    page_title="Movie Recommender"
+    page_title="Movie Recommender",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_icon="🎬"
 )
 
 @st.cache_data
@@ -32,14 +35,11 @@ def get_top_movies_by_genre(df, genre):
 movies = load_movies()
 
 # Title
-st.sidebar.header("Movie Recommender 1")
+st.sidebar.header("Movie Recommender")
+st.sidebar.text("Select a genre and click the recommendations button")
 
 # Selection
-st.subheader('Step 1: Select a Genre')
-genre = st.selectbox('', movies['Genres'].unique())
-
-# Button to trigger the recommendation
-st.subheader('Step 2: Click to get your recommendations')
+genre = st.selectbox('Genres', movies['Genres'].unique())
 
 # Render recommendation
 if st.button('Get Recommendations'):
