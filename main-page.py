@@ -1,5 +1,5 @@
 import streamlit as st
-from st_pages import Page, add_page_title, show_pages
+from st_pages import Page, add_page_title, show_pages, show_pages_from_config
 
 st.set_page_config(
     page_title="Home",
@@ -14,6 +14,9 @@ show_pages(
         Page("pages/recommender.py", "By Rating", "🎬"),
     ]
 )
+
+
+show_pages_from_config()
 
 st.markdown("""
     ## Movie Recommendation Demo
