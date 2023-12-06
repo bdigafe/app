@@ -1,0 +1,12 @@
+[[pages]]
+path = "main-page.py"
+name = "Home"
+icon = ":house"
+
+[[pages]]
+path = "pages/bygenres.py"
+name = "Recommendation by Genres"
+
+[[pages]]
+path = "pages/recommender.py"
+name = "Recommendation by Rating"
