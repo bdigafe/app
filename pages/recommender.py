@@ -24,8 +24,8 @@ class LimitedSizeList():
     def __setitem__(self, key, value):
         self._set_item(key, value)
 
-    def __removeitem__(self, key):
-        self._remove_item(key)
+    def __delitem__(self, key):
+        self._del_item(key)
 
     def _set_item(self, key, value):
         kv = (key, value)
@@ -47,7 +47,7 @@ class LimitedSizeList():
                 break
         return val
     
-    def _remove_item(self, key):
+    def _del_item(self, key):
         if key in self._list:
             self._list.remove(key)
 
@@ -93,7 +93,7 @@ def save_rating(key):
     rating = st.session_state[key]
     if rating == 0:
         if key in st.session_state.ratings:
-            del st.session_state.ratings.remove_item(key)
+            del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = rating
         st.session_state[key] = rating
