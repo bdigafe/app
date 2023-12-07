@@ -88,7 +88,7 @@ def render_movie_samples(sample_movies):
         # Add Slider
         col.slider(
             label='Rating',
-            label_visibility ='hide',
+            label_visibility ='hidden',
             min_value=value,
             max_value=5,
             value=0,
