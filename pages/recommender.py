@@ -88,7 +88,7 @@ def render_movie_samples(sample_movies):
 
         # Add Slider
         col.slider(
-            label=None
+            label=None,
             min_value=value,
             max_value=5,
             value=0,
