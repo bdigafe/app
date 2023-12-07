@@ -16,7 +16,10 @@ class LimitedSizeList():
         return len(self._list)
     
     def __contains__(self, key):
-        return key in self._list
+        for kv in self._list:
+            if kv[0] == key:
+                return True
+        return False
     
     def __getitem__(self, key):
         return self._get_item(key)
@@ -25,15 +28,18 @@ class LimitedSizeList():
         self._set_item(key, value)
 
     def __delitem__(self, key):
-        self._del_item(key)
+        item  = self._get_item(key)
+        if item:
+            self._list.remove(item)
 
     def _set_item(self, key, value):
-        kv = (key, value)
         data = self._list
 
-        if kv in data:
+        item = self._get_item(key)
+        if item in data:
            data.remove(kv)
 
+        kv = (key, value)
         data.insert(0, kv)
 
         while len(data) > self.cache_len:
@@ -47,10 +53,6 @@ class LimitedSizeList():
                 break
         return val
     
-    def _del_item(self, key):
-        if key in self._list:
-            self._list.remove(key)
-
     def __repr__(self):
         # convert list of key-value pairs to dict
         return repr(dict(self._list))
