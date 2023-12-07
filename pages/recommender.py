@@ -40,8 +40,10 @@ def render_movie_samples(sample_movies):
     for _, row in sample_movies.iterrows():
         if (i) % 3 == 0:
             st.write('---')
-        cols[i % 3].image(f'{row.image_url}')
-        cols[i % 3].write(f'{row.Title}')
+
+        url = f"./pages/images/{row.MovieID}.jpg"
+        cols[i % 3].image(url)
+        cols[i % 3].write(row.Title)
         i += 1
 
 def myIBCF(S, w, t=None):
