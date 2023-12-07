@@ -9,7 +9,6 @@ st.set_page_config(
     page_icon="🎬"
 )
   
-
 @st.cache_data
 def load_top_sim(movies):
     sim = pd.read_csv('./data/top_sim.csv')
@@ -34,6 +33,9 @@ def get_movie_samples(sim, movies, sample_size=200):
     # Merge with movies to get the movie titles
     df = df.merge(movies, on='MovieID')
     return df[['MovieID', 'Title']]
+
+def save_rating(key):
+    st.session_state.ratings[key] = st.session_state[key]
 
 @st.cache_data
 def render_movie_samples(sample_movies):
@@ -62,9 +64,9 @@ def render_movie_samples(sample_movies):
             min_value=0,
             max_value=5,
             value=0,
-            step=1
+            step=1,
             key=MovieID,
-            on_change=set_rating,
+            on_change=save_rating,
         )
         i += 1
 
