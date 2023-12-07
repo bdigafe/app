@@ -138,3 +138,13 @@ render_movie_samples(samples, st_movies_ratings)
 
 # Get the ratings
 st_top_movies = st.expander("Recommendations", expanded=True)
+
+# Indicate number of ratings
+st.sidebar.slider(
+    label='You have rated',
+    min_value=1,
+    max_value=10,
+    value=st.session_state.ratings.__len__(),
+    disabled=True,
+    key='num_ratings',
+)
