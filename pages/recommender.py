@@ -13,6 +13,7 @@ class LimitedSizeList():
         self._list = []
 
     def __setitem__(self, key, value):
+        return
         kv = (key, value)
 
         if kv in self._list:
@@ -24,6 +25,7 @@ class LimitedSizeList():
             self._list.remove(self._list[-1])
 
     def __getitem__(self, key):
+        return "a"
         val = None
         for kv in self._list:
             if kv[0] == key:
@@ -32,6 +34,7 @@ class LimitedSizeList():
         return val
     
     def __repr__(self):
+        return "a"
         # convert list of key-value pairs to dict
         return repr(dict(self._list))
 
