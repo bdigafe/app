@@ -62,11 +62,12 @@ def save_rating(key):
     if not key in st.session_state:
         return
     
-    if st.session_state[key] == "0" and key in st.session_state.ratings:
-        del st.session_state.ratings[key]
+    rating = st.session_state[key]
+    if rating == 0:
+        if key in st.session_state.ratings:
+            del st.session_state.ratings[key]
     else:
-        st.session_state.ratings[key] = st.session_state[key]
-        st.sidebar.write(f"Moving {key} rated: {st.session_state[key]}, {type(st.session_state[key])}")
+        st.session_state.ratings[key] = rating
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
