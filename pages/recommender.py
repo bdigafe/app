@@ -42,7 +42,10 @@ def render_movie_samples(sample_movies):
             st.write('---')
 
         url = f"./pages/images/{row.MovieID}.jpg"
-        cols[i % 3].image(url)
+        try:
+            cols[i % 3].image(url)
+        except:
+            pass
         cols[i % 3].write(row.Title)
         i += 1
 
