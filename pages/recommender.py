@@ -4,28 +4,36 @@ import numpy as np
 from collections import OrderedDict
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
-class LimitedDict(OrderedDict):
+class LimitedSizeList():
     """Dict with a limited length, ejecting LRUs as needed."""
 
     def __init__(self, *args, cache_len: int = 10, **kwargs):
         assert cache_len > 0
         self.cache_len = cache_len
-
-        super().__init__(*args, **kwargs)
+        self._list = []
 
     def __setitem__(self, key, value):
-        super().__setitem__(key, value)
-        super().move_to_end(key)
+        kv = (key, value)
 
-        while len(self) > self.cache_len:
-            oldkey = next(iter(self))
-            super().__delitem__(oldkey)
+        if kv in self._list:
+            self._list.remove(kv)
+
+        self._list.insert(kv, 0)
+
+        while len(self._list) > self.cache_len:
+            del self._list.pop()
 
     def __getitem__(self, key):
-        val = super().__getitem__(key)
-        super().move_to_end(key)
-
+        val = None
+        for kv in self._list:
+            if kv[0] == key:
+                val = kv[1]
+                break
         return val
+    
+    def __repr__(self):
+        # convert list of key-value pairs to dict
+        return repr(dict(self._list))
 
 st.set_page_config(
     layout="wide",
@@ -129,7 +137,7 @@ def myIBCF(S, w, t=None):
 
 # Initialize user ratings
 if 'ratings' not in st.session_state:
-    st.session_state.ratings = LimitedDict(cache_len=10)
+    st.session_state.ratings = LimitedSizeList(cache_len=10)
 
 # Load Movies
 movies = load_movies()
