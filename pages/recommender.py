@@ -61,7 +61,6 @@ def get_movie_samples(sim, movies, sample_size=200):
 def save_rating(key):
     st.session_state.ratings[key] = st.session_state[key]
 
-@st.cache_data
 def render_movie_samples(sample_movies):
     st.markdown('## Top 10 Movies by Rating')
 
