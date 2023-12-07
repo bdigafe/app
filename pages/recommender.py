@@ -65,11 +65,11 @@ def save_rating(key):
 def render_movie_samples(sample_movies):
     st.markdown('## Top 10 Movies by Rating')   
     i=1
-    div = st.container(border=True) 
+    div = st.container() 
     cols = div.columns([2, 2, 2])                       
     for _, row in sample_movies.iterrows():
         if (i) % 3 == 0:
-            div = st.container(border=True) 
+            div = st.container() 
             cols = div.columns([2, 2, 2]) 
 
         col = cols[i % 3].container(border=True)
