@@ -1,10 +1,14 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from limited_dict import LimitedDict
 
 st.set_page_config(
-    page_title="Recommendation by Rating"
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_icon="🎬"
 )
+  
 
 @st.cache_data
 def load_top_sim(movies):
@@ -47,6 +51,21 @@ def render_movie_samples(sample_movies):
         except:
             pass
         cols[i % 3].write(row.Title)
+
+        # MovieId
+        MovieID = row.MovieID
+        if MovieID in st.session_state.ratings:
+            st.session_state[MovieID] = st.session_state.ratings[MovieID]
+
+        # Add Slider
+        st.slider(
+            min_value=0,
+            max_value=5,
+            value=0,
+            step=1
+            key=MovieID,
+            on_change=set_rating,
+        )
         i += 1
 
 def myIBCF(S, w, t=None):
@@ -70,6 +89,12 @@ def myIBCF(S, w, t=None):
 
     # return the movie ids with the top 10 ratings
     return r.sort_values(ascending=False)
+
+# Main code
+
+# Initialize user ratings
+if 'ratings' not in st.session_state:
+    ratings = LimitedDict(cache_len=10)
 
 # Load Movies
 movies = load_movies()

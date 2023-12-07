@@ -8,7 +8,6 @@ movies_column_config = {
 }
 
 st.set_page_config(
-    page_title="Movie Recommender",
     layout="wide",
     initial_sidebar_state="expanded",
     page_icon="🎬"
