@@ -62,7 +62,7 @@ def save_rating(key):
     if not key in st.session_state:
         return
     
-    if st.session_state[key] == 0 and key in st.session_state.ratings:
+    if st.session_state[key] == "0" and key in st.session_state.ratings:
         del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = st.session_state[key]
