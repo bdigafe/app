@@ -71,12 +71,13 @@ def render_movie_samples(sample_movies):
         if (i) % 3 == 0:
             st.write('---')
 
+        col = cols[i % 3]
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            cols[i % 3].image(url)
+            col.image(url)
         except:
             pass
-        cols[i % 3].write(row.Title)
+        col.write(row.Title)
 
         # MovieId
         MovieID = row.MovieID
@@ -84,7 +85,7 @@ def render_movie_samples(sample_movies):
             st.session_state[MovieID] = st.session_state.ratings[MovieID]
 
         # Add Slider
-        st.slider(
+        col.slider(
             label="Rate this movie",
             min_value=0,
             max_value=5,
