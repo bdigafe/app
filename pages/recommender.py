@@ -87,8 +87,7 @@ def render_movie_samples(sample_movies):
             value = st.session_state.ratings[MovieID]
 
         # Add Slider
-        with col:
-            st_star_rating("Please rate you experience", maxValue=5, defaultValue=3, key=f"_{MovieID}")
+        st_star_rating("Please rate you experience", maxValue=5, defaultValue=3, key=f"_{MovieID}")
 
         col.slider(
             label='Rating',
