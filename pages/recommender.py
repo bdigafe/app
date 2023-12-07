@@ -88,7 +88,7 @@ def render_movie_samples(sample_movies):
             label="",
             min_value=0,
             max_value=5,
-            value=np.nan,
+            value=0,
             step=1,
             key=MovieID,
             on_change=save_rating(MovieID)
