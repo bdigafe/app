@@ -21,7 +21,7 @@ class LimitedSizeList():
         self._list.insert(kv, 0)
 
         while len(self._list) > self.cache_len:
-            del self._list.pop()
+            self._list.remove(self._list[-1])
 
     def __getitem__(self, key):
         val = None
