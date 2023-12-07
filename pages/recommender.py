@@ -78,8 +78,7 @@ def render_movie_samples(sample_movies):
             col.image(url, width=150, caption=row.Title)
         except:
             pass
-        col.write(row.Title)
-
+  
         # MovieId
         MovieID = row.MovieID
         value = 0
