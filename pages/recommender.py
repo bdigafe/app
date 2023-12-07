@@ -82,13 +82,14 @@ def render_movie_samples(sample_movies):
 
         # MovieId
         MovieID = row.MovieID
+        value = 0
         if MovieID in st.session_state.ratings:
-            st.session_state[MovieID] = st.session_state.ratings[MovieID]
+            value = st.session_state.ratings[MovieID]
 
         # Add Slider
         col.slider(
             label="",
-            min_value=0,
+            min_value=value,
             max_value=5,
             value=0,
             step=1,
