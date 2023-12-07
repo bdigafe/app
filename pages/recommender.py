@@ -43,7 +43,7 @@ class LimitedSizeList():
 
         item = self._get_item(key)
         if item in data:
-           data.remove(kv)
+           data.remove(item)
 
         kv = (key, value)
         data.insert(0, kv)
