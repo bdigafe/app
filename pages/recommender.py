@@ -95,7 +95,7 @@ def render_movie_samples(sample_movies, st_parent):
             label_visibility ='hidden',
             min_value=value,
             max_value=5,
-            value=0,
+            value=value,
             step=1,
             key=MovieID,
             on_change=save_rating(MovieID)
