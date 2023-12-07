@@ -34,7 +34,15 @@ def get_movie_samples(sim, movies, sample_size=200):
 @st.cache_data
 def render_movie_samples(sample_movies):
     st.markdown('## Top 10 Movies by Rating')
-    st.table(sample_movies)
+
+    cols = st.columns([2, 2, 2])
+    i=1                           
+    for _, row in sample_movies.iterrows():
+        if (i) % 3 == 0:
+            st.write('---')
+        cols[i % 3].image(f'{row.image_url}')
+        cols[i % 3].write(f'{row.Title}')
+        i += 1
 
 def myIBCF(S, w, t=None):
 
@@ -60,13 +68,12 @@ def myIBCF(S, w, t=None):
 
 # Load Movies
 movies = load_movies()
-st.write(movies)
 
 # Load the data
 sim = load_top_sim(movies)
-st.write(sim.head())
 
 # Get the movie samples
 samples = get_movie_samples(sim, movies)
 
 # Render the samples
+render_movie_samples(samples)

@@ -23,6 +23,7 @@ def load_movies():
     # Top 10 Movies for each genre
     df = pd.read_csv('./data/top10_movies.csv')
     df = df.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
+    df.sort_values(by=['Genres', 'Rating'], inplace=True)
     
     df['image_url'] = df.apply(lambda m: f"./pages/images/{m.MovieID}.jpg", axis=1)
     return df
