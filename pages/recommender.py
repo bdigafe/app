@@ -62,12 +62,11 @@ def save_rating(key):
     if key in st.session_state:
         st.session_state.ratings[key] = st.session_state[key]
 
-def render_movie_samples(sample_movies):
-    st.markdown('## Top 10 Movies by Rating')   
+def render_movie_samples(sample_movies, st_parent):
     i=0                     
     for _, row in sample_movies.iterrows():
         if (i) % 3 == 0:
-            div = st.container() 
+            div = st_parent.container() 
             cols = div.columns([2, 2, 2]) 
 
         col = cols[i % 3].container(border=True)
@@ -134,4 +133,8 @@ sim = load_top_sim(movies)
 samples = get_movie_samples(sim, movies)
 
 # Render the samples
-render_movie_samples(samples)
+st_movies_ratings = st.expander("Select up to 10 movies", expanded=True)
+render_movie_samples(samples, st_movies_ratings)
+
+# Get the ratings
+st_top_movies = st.expander("Recommendations", expanded=True)
