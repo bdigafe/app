@@ -4,39 +4,36 @@ import numpy as np
 from collections import OrderedDict
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
-class LimitedSizeList():
+class LimitedSizeList(list):
     """Dict with a limited length, ejecting LRUs as needed."""
 
     def __init__(self, *args, cache_len: int = 10, **kwargs):
         assert cache_len > 0
         self.cache_len = cache_len
-        self._list = []
+        super().__init__()
 
     def __setitem__(self, key, value):
-        return
         kv = (key, value)
 
-        if kv in self._list:
-            self._list.remove(kv)
+        if kv in super():
+            super.remove(kv)
 
-        self._list.insert(kv, 0)
+        super.insert(kv, 0)
 
-        while len(self._list) > self.cache_len:
-            self._list.remove(self._list[-1])
+        while len(super()) > self.cache_len:
+            super().remove(super()[-1])
 
     def __getitem__(self, key):
-        return "a"
         val = None
-        for kv in self._list:
+        for kv in self.super():
             if kv[0] == key:
                 val = kv[1]
                 break
         return val
     
     def __repr__(self):
-        return "a"
         # convert list of key-value pairs to dict
-        return repr(dict(self._list))
+        return repr(dict(self.super()))
 
 st.set_page_config(
     layout="wide",
