@@ -4,36 +4,56 @@ import numpy as np
 from collections import OrderedDict
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
-class LimitedSizeList(list):
+class LimitedSizeList():
     """Dict with a limited length, ejecting LRUs as needed."""
 
     def __init__(self, *args, cache_len: int = 10, **kwargs):
         assert cache_len > 0
         self.cache_len = cache_len
-        super().__init__()
+        self._list = []
 
-    def __setitem__(self, key, value):
-        kv = (key, value)
-
-        if kv in super():
-            super.remove(kv)
-
-        super.insert(kv, 0)
-
-        while len(super()) > self.cache_len:
-            super().remove(super()[-1])
-
+    def __len__(self):
+        return len(self._list)
+    
+    def __contains__(self, key):
+        return key in self._list
+    
     def __getitem__(self, key):
+        return self.get_item(key)
+    
+    def __setitem__(self, key, value):
+        self.set_item(key, value)
+
+    def __removeitem__(self, key):
+        self.remove_item(key)
+
+    def set_item(self, key, value):
+        kv = (key, value)
+        data = self._list
+
+        if kv in data:
+           data.remove(kv)
+
+        data.insert(0, kv)
+
+        while len(data) > self.cache_len:
+            data.remove(data[-1])
+
+    def get_item(self, key):
         val = None
-        for kv in self.super():
+        for kv in self._list:
             if kv[0] == key:
                 val = kv[1]
                 break
         return val
     
+    def remove_item(self, key):
+        if key in self._list:
+            self._list.remove(key)
+
     def __repr__(self):
         # convert list of key-value pairs to dict
-        return repr(dict(self.super()))
+        return repr(dict(self._list))
 
 st.set_page_config(
     layout="wide",
@@ -73,9 +93,9 @@ def save_rating(key):
     rating = st.session_state[key]
     if rating == 0:
         if key in st.session_state.ratings:
-            del st.session_state.ratings[key]
+            del st.session_state.ratings.remove_item(key)
     else:
-        st.session_state.ratings[key] = rating
+        st.session_state.ratings.set_item(key, rating)
         st.session_state[key] = rating
 
 def render_movie_samples(sample_movies, st_parent):
@@ -96,7 +116,7 @@ def render_movie_samples(sample_movies, st_parent):
         MovieID = row.MovieID
         value = 0
         if MovieID in st.session_state.ratings:
-            value = st.session_state.ratings[MovieID]
+            value = st.session_state.ratings.get_item(MovieID)
 
         # Add Slider
         col.slider(
