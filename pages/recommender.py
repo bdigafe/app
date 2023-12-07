@@ -32,6 +32,9 @@ class LimitedSizeList():
         if item:
             self._list.remove(item)
 
+    def __iter__(self): 
+        return self.list.__iter__()
+
     def _set_item(self, key, value):
         data = self._list
 
