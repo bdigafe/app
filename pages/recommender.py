@@ -29,7 +29,7 @@ class LimitedSizeList():
 
     def __delitem__(self, key):
         item  = self._get_item(key)
-        if item:
+        if item in self._list:
             self._list.remove(item)
 
     def __iter__(self): 
