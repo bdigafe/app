@@ -19,15 +19,15 @@ class LimitedSizeList():
         return key in self._list
     
     def __getitem__(self, key):
-        return self.get_item(key)
+        return self._get_item(key)
     
     def __setitem__(self, key, value):
-        self.set_item(key, value)
+        self._set_item(key, value)
 
     def __removeitem__(self, key):
-        self.remove_item(key)
+        self._remove_item(key)
 
-    def set_item(self, key, value):
+    def _set_item(self, key, value):
         kv = (key, value)
         data = self._list
 
@@ -39,7 +39,7 @@ class LimitedSizeList():
         while len(data) > self.cache_len:
             data.remove(data[-1])
 
-    def get_item(self, key):
+    def _get_item(self, key):
         val = None
         for kv in self._list:
             if kv[0] == key:
@@ -47,7 +47,7 @@ class LimitedSizeList():
                 break
         return val
     
-    def remove_item(self, key):
+    def _remove_item(self, key):
         if key in self._list:
             self._list.remove(key)
 
@@ -95,7 +95,7 @@ def save_rating(key):
         if key in st.session_state.ratings:
             del st.session_state.ratings.remove_item(key)
     else:
-        st.session_state.ratings.set_item(key, rating)
+        st.session_state.ratings[key] = rating
         st.session_state[key] = rating
 
 def render_movie_samples(sample_movies, st_parent):
@@ -116,7 +116,7 @@ def render_movie_samples(sample_movies, st_parent):
         MovieID = row.MovieID
         value = 0
         if MovieID in st.session_state.ratings:
-            value = st.session_state.ratings.get_item(MovieID)
+            value = st.session_state.ratings[MovieID]
 
         # Add Slider
         col.slider(
