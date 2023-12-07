@@ -54,7 +54,7 @@ class LimitedSizeList():
             if kv[0] == key:
                 val = kv[1]
                 break
-        return val
+        return kv
     
     def __repr__(self):
         # convert list of key-value pairs to dict
