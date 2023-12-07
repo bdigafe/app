@@ -22,7 +22,10 @@ class LimitedSizeList():
         return False
     
     def __getitem__(self, key):
-        return self._get_item(key)
+        kv = self._get_item(key)
+        if not kv is None:
+            return kv[1]
+        return None
     
     def __setitem__(self, key, value):
         self._set_item(key, value)
@@ -49,12 +52,12 @@ class LimitedSizeList():
             data.remove(data[-1])
 
     def _get_item(self, key):
-        val = None
+        kv = None
         for kv in self._list:
             if kv[0] == key:
-                val = kv[1]
-                break
-        return kv
+                return kv
+    
+        return None
     
     def __repr__(self):
         # convert list of key-value pairs to dict
