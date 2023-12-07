@@ -1,3 +1,2 @@
 # https://st-pages.streamlit.app/
 st-pages
-st-star-rating
