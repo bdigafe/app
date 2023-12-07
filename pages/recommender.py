@@ -63,13 +63,14 @@ def save_rating(key):
         st.session_state.ratings[key] = st.session_state[key]
 
 def render_movie_samples(sample_movies):
-    st.markdown('## Top 10 Movies by Rating')
-
-    cols = st.columns([2, 2, 2])
-    i=1                           
+    st.markdown('## Top 10 Movies by Rating')   
+    i=1
+    div = st.container(border=True) 
+    cols = div.columns([2, 2, 2])                       
     for _, row in sample_movies.iterrows():
         if (i) % 3 == 0:
-            st.write('---')
+            div = st.container(border=True) 
+            cols = div.columns([2, 2, 2]) 
 
         col = cols[i % 3].container(border=True)
         url = f"./pages/images/{row.MovieID}.jpg"
