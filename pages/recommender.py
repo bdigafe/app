@@ -85,7 +85,7 @@ def render_movie_samples(sample_movies):
 
         # Add Slider
         col.slider(
-            label="Rate this movie",
+            label="",
             min_value=0,
             max_value=5,
             value=0,
