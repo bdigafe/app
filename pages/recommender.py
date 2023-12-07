@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from collections import OrderedDict
+from streamlit_star_rating import st_star_rating
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
 class LimitedDict(OrderedDict):
@@ -84,6 +85,13 @@ def render_movie_samples(sample_movies):
         value = 0
         if MovieID in st.session_state.ratings:
             value = st.session_state.ratings[MovieID]
+
+        # Add Slider
+        col.write(st_star_rating(
+                "Please rate you experience", 
+                maxValue=5, 
+                key=f"_{MovieID}"
+        ))
 
         col.slider(
             label='Rating',
