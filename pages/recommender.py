@@ -61,7 +61,6 @@ def get_movie_samples(sim, movies, sample_size=200):
 def save_rating(key):
     if key in st.session_state:
         st.session_state.ratings[key] = st.session_state[key]
-    st.session_state.num_ratings =  len(st.session_state.ratings)
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
@@ -149,3 +148,5 @@ st.sidebar.slider(
     disabled=True,
     key='num_ratings',
 )
+
+st.sidebar.write(st.session_state.ratings)
