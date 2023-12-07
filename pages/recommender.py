@@ -89,6 +89,7 @@ def render_movie_samples(sample_movies):
         # Add Slider
         col.write(st_star_rating(
                 "Please rate you experience", 
+                defaultValue=None,
                 maxValue=5, 
                 key=f"_{MovieID}"
         ))
