@@ -68,6 +68,7 @@ def save_rating(key):
             del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = rating
+        st.session_state[key] = rating
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
