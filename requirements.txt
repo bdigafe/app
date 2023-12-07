@@ -1,2 +1,3 @@
 # https://st-pages.streamlit.app/
 st-pages
+pip install st-star-rating

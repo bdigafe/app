@@ -75,7 +75,7 @@ def render_movie_samples(sample_movies):
         col = cols[i % 3].container(border=True)
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            col.image(url, width=150, caption=row.Title)
+            col.image(url, caption=row.Title)
         except:
             pass
   
@@ -86,6 +86,8 @@ def render_movie_samples(sample_movies):
             value = st.session_state.ratings[MovieID]
 
         # Add Slider
+        col.st_star_rating("Please rate you experience", maxValue=5, defaultValue=3, key="_"+MovieID)
+
         col.slider(
             label='Rating',
             label_visibility ='hidden',
