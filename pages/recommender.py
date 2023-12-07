@@ -66,7 +66,7 @@ def save_rating(key):
         del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = st.session_state[key]
-        st.sidebar.write(f"Moving {key} rated: {st.session_state[key]}")
+        st.sidebar.write(f"Moving {key} rated: {st.session_state[key]}, {type(st.session_state[key])}")
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
