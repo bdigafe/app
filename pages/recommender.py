@@ -88,10 +88,10 @@ def render_movie_samples(sample_movies):
             label="",
             min_value=0,
             max_value=5,
-            value=0,
+            value=-1,
             step=1,
             key=MovieID,
-            on_change=save_rating,
+            on_change=save_rating(MovieID)
         )
         i += 1
 
