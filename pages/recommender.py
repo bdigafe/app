@@ -61,6 +61,7 @@ def get_movie_samples(sim, movies, sample_size=200):
 def save_rating(key):
     if key in st.session_state:
         st.session_state.ratings[key] = st.session_state[key]
+    st.session_state.num_ratings =  st.session_state.ratings.__len__()
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
