@@ -70,7 +70,7 @@ def render_movie_samples(sample_movies):
         if (i) % 3 == 0:
             st.write('---')
 
-        col = cols[i % 3]
+        col = cols[i % 3].container()
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
             col.image(url)
