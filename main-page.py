@@ -10,10 +10,8 @@ st.set_page_config(
 show_pages(
     [
         Page("main-page.py", "Home", "🏠"),
-        Section("Recommendation Systems", "🎬"),
         Page("pages/bygenres.py", "Movie - By Genre"),
         Page("pages/recommender.py", "Movie- By Rating"),
-        Section("")
     ]
 )
 

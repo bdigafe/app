@@ -185,18 +185,22 @@ sim = load_top_sim(movies)
 samples = get_movie_samples(sim, movies)
 
 # Render the samples
-st_movies_ratings = st.expander("Select up to 10 movies", expanded=True)
-render_movie_samples(samples, st_movies_ratings)
+st.subheader("Movie recommendations based on your ratings")
+st.markdown("Rate the movies below and click on the recommendation tab and button to get your recommendations.")
+
+tab1, tab2 = st.tabs(["Your ratings", "Recommendation"])
+
+render_movie_samples(samples, tab1)
 
 # Get the ratings
-st_top_movies = st.expander("Recommendations", expanded=True)
+tab2.markdown("### Your Recommendations")
 
 # Indicate number of ratings
 st.sidebar.divider()
 st.sidebar.markdown("### Your Ratings")
 st.sidebar.slider(
     label='',
-    min_value=1,
+    min_value=0,
     max_value=10,
     value=len(st.session_state.ratings),
     disabled=True,
