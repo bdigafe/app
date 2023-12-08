@@ -16,9 +16,10 @@ class LimitedSizeList():
         return len(self._list)
     
     def __contains__(self, key):
-        for kv in self._list:
-            if kv[0] == key:
-                return True
+        kv  = self._get_item(key)
+        if kv is not None:
+            return True
+        
         return False
     
     def __getitem__(self, key):
