@@ -1,5 +1,5 @@
 import streamlit as st
-from st_pages import Page, add_page_title, show_pages
+from st_pages import Page, Section, add_page_title, show_pages
 
 st.set_page_config(
     page_title="Home",
@@ -10,8 +10,10 @@ st.set_page_config(
 show_pages(
     [
         Page("main-page.py", "Home", "🏠"),
+        Section("Recommendation Systems", "🎬"),
         Page("pages/bygenres.py", "Movie - By Genre"),
         Page("pages/recommender.py", "Movie- By Rating"),
+        Section("")
     ]
 )
 
