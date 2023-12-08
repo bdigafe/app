@@ -40,17 +40,16 @@ class LimitedSizeList():
         return self._list.__iter__()
 
     def _set_item(self, key, value):
-        data = self._list
 
         item = self._get_item(key)
         if not item is None:
-           data.remove(item)
+           self._list.remove(item)
 
         kv = (key, value)
-        data.insert(0, kv)
+        self._list.insert(0, kv)
 
-        while len(data) > self.cache_len:
-            data.remove(data[-1])
+        while len(self._list) > self.cache_len:
+            self._list.remove(self._list[-1])
 
     def _get_item(self, key):
         kv = None
