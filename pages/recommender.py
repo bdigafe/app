@@ -29,7 +29,12 @@ class LimitedSizeList():
         return None
     
     def __setitem__(self, key, value):
+        if value == 5:
+            st.sidebar.write(f"Before {st.session_state.ratings}")
+
         self._set_item(key, value)
+        if value == 5:
+            st.sidebar.write(f"After {st.session_state.ratings}")
 
     def __delitem__(self, key):
         item  = self._get_item(key)
@@ -113,9 +118,7 @@ def save_rating(key):
     else:
         st.session_state.ratings[int(key)] = rating
     
-    st.session_state[key] = rating
-    if rating != 0:
-        st.sidebar.write(f"Saving {st.session_state.ratings}")
+    st.session_state[key] = rating       
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
