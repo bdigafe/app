@@ -243,3 +243,4 @@ if st.sidebar.button('Clear ratings'):
     for k in st.session_state.ratings:
         st.session_state[k] = 0
     st.session_state.ratings = LimitedSizeList(cache_len=10)
+    st.rerun()
