@@ -201,4 +201,4 @@ st.sidebar.slider(
     key='num_ratings',
 )
 
-st.sidebar.text_area('Your ratings', st.session_state.ratings, height=60, disabled=True)
+st.sidebar.text_area('Your ratings', st.session_state.ratings, height=120, disabled=True)
