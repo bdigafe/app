@@ -68,17 +68,6 @@ class LimitedSizeList():
         # convert dict to json
         return json.dumps(kv, indent=4)
 
-
-
-        st = "{"
-        for i in range(len(self._list)):
-            kv = self._list[i]
-            st += f"{kv[0]} : {kv[1]}," 
-
-        st += "}"
-        return json.dumps(json.to_json(st),ident=4)
-
-
 st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
@@ -212,4 +201,4 @@ st.sidebar.slider(
     key='num_ratings',
 )
 
-st.sidebar.write(st.session_state.ratings)
+st.sidebar.text_area('Your ratings', st.session_state.ratings, height=10, disabled=True)
