@@ -59,13 +59,14 @@ class LimitedSizeList():
     
         return None
     
-    def __repr__(self):
-        # convert list of key-value pairs to dict
+    def to_dict(self):
         kv = {}
         for i in range(len(self._list)):
             kv[self._list[i][0]] = self._list[i][1]
-        
-        # convert dict to json
+        return kv
+    
+    def __repr__(self):
+        kv = self.to_dict()
         return json.dumps(kv, indent=4)
 
 st.set_page_config(
@@ -169,6 +170,23 @@ def myIBCF(S, w, t=None):
     # return the movie ids with the top 10 ratings
     return r.sort_values(ascending=False)
 
+def get_user_recommendations(ratings, movies, sim):
+    # Convert ratings to a dataframe
+    ratings = pd.DataFrame.from_dict(ratings, orient='index', columns=['Rating'])
+    ratings.index.name = 'MovieID'
+    ratings.reset_index(inplace=True)
+
+    # Merge ratings with the similarity matrix
+    df = movies.merge(ratings, on='MovieID', how='inner')
+    df.set_index('MovieID', inplace=True)
+
+    # Compute the weighted average of wi*si
+    r = myIBCF(df['Rating'], sim)
+
+    return r
+    
+
+
 # Main code
 
 # Initialize user ratings
@@ -195,24 +213,12 @@ render_movie_samples(samples, tab1)
 tab2.markdown("### Your Recommendations")
 if st.button('Get Recommendations'):
     # Convert ratings to a dataframe
-    ratings = pd.DataFrame.from_dict(st.session_state.ratings, orient='index', columns=['Rating'])
-    ratings.index.name = 'MovieID'
-    ratings.reset_index(inplace=True)
-
-    # Merge ratings with the similarity matrix
-    df = ratings.merge(sim, on='MovieID', how='inner')
-    df.set_index('MovieID', inplace=True)
-
-    # Compute the weighted average of wi*si
-    r = myIBCF(df, ratings['Rating'])
-
-    # Get the top 10 movies
-    top_movies = movies.merge(r, on='MovieID', how='inner').sort_values(by='Rating', ascending=False).head(10)
+    r = get_user_recommendations(st.session_state.ratings, movies, sim)
 
     # Render the top 10 movies
     cols = tab2.columns([2, 2, 2])
     i=1                           
-    for _, row in top_movies.iterrows():
+    for _, row in r.iterrows():
         if (i) % 3 == 0:
             tab2.write('---')
         try:
@@ -221,7 +227,6 @@ if st.button('Get Recommendations'):
             pass
         cols[i % 3].write(f'{row.Title}')
         i += 1
-
 
 # Indicate number of ratings
 st.sidebar.markdown("#### You rated")
