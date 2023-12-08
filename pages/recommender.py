@@ -36,13 +36,13 @@ class LimitedSizeList():
             self._list.remove(item)
 
     def __iter__(self): 
-        return self.list.__iter__()
+        return self._list.__iter__()
 
     def _set_item(self, key, value):
         data = self._list
 
         item = self._get_item(key)
-        if item in data:
+        if not item is None:
            data.remove(item)
 
         kv = (key, value)
@@ -101,6 +101,7 @@ def save_rating(key):
     rating = st.session_state[key]
     if rating == 0:
         if key in st.session_state.ratings:
+            st.sidebar.write(f"Removing {key} from ratings")
             del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = rating
