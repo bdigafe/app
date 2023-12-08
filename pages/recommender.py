@@ -61,7 +61,9 @@ class LimitedSizeList():
     
     def __repr__(self):
         # convert list of key-value pairs to dict
-        kv = self._list.to_dict()
+        kv = {}
+        for i in range(len(self._list)):
+            kv[self._list[i][0]] = self._list[i][1]
         
         # convert dict to json
         return json.dumps(kv, indent=4)
