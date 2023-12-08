@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import json
 
+DEBUG = False
+
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
 class LimitedSizeList():
     """Dict with a limited length, ejecting LRUs as needed."""
@@ -185,8 +187,7 @@ def get_user_recommendations(user_ratings, sim):
     # Compute the weighted average of wi*m
     r = myIBCF(sim, w)
 
-    return r
-    
+    return r 
 
 
 # Main code
@@ -209,14 +210,15 @@ st.subheader("Movie recommendations based on your ratings")
 st.markdown("Rate the movies below and click on the recommendation tab to get your recommendations.")
 
 tab1, tab2 = st.tabs(["Your ratings", "Recommendation"])
-#render_movie_samples(samples, tab1)
-
-# debugging
-ratings = LimitedSizeList(cache_len=10)
-ratings[3952] = 3
-ratings[3950] = 4
-ratings[3950] = 4
-r = get_user_recommendations(ratings, sim)
+if not DEBUG:
+    render_movie_samples(samples, tab1)
+else:
+    # debugging
+    ratings = LimitedSizeList(cache_len=10)
+    ratings[3952] = 3
+    ratings[3950] = 4
+    ratings[3950] = 4
+    r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
 tab2.markdown("### Your Recommendations")
