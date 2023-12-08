@@ -120,19 +120,25 @@ def render_movie_samples(sample_movies, st_parent):
         col = cols[i % 3].container(border=True)
         col_image, col_rating= col.columns([1, 1])
  
+        # Image
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            col_image.image(url, caption=row.Title, width=185)
+            col_image.image(url, width=185)
         except:
-            col_image.write(row.Title)
+            pass
   
-        # MovieId
+        # Title, Genres, and rating
+        col_rating.write(f"Title: {row.Title}")
+        col_rating.write(f"Genres: {row.Genres}")
+
+
         MovieID = row.MovieID
         value = 0
         if MovieID in st.session_state.ratings:
             value = st.session_state.ratings[MovieID]
 
         # Add Slider
+        col_rating.write(f"Your Rating")
         col_rating.slider(
             label=':red[Rating]',
             label_visibility ='hidden',
