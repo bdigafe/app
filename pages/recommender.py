@@ -114,6 +114,8 @@ def save_rating(key):
         st.session_state.ratings[int(key)] = rating
     
     st.session_state[key] = rating
+    if rating != 0:
+        st.sidebar.write(f"Saving {st.session_state.ratings}")
 
 def render_movie_samples(sample_movies, st_parent):
     i=0                     
