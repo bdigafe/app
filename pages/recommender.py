@@ -94,8 +94,8 @@ def load_movies():
 def get_movie_samples(sim, movies, sample_size=200):
      # MovieID,Title, Genres, Rating
     sample_movies = pd.read_csv(f'./data/sample_movies.csv', sep='::', engine = 'python', encoding="ISO-8859-1", header = None)
-    sample_movies.columns = ['MovieID', 'Title']
-    return sample_movies
+    sample_movies.columns = ['MovieID', 'Title', 'Genres', 'Rating']
+    return sample_movies[['MovieID', 'Title', 'Genres']]
 
     df = sim.copy()
     df.fillna(0, inplace=True)
