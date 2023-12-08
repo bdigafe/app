@@ -193,6 +193,35 @@ render_movie_samples(samples, tab1)
 
 # Get the ratings
 tab2.markdown("### Your Recommendations")
+if st.button('Get Recommendations'):
+    # Convert ratings to a dataframe
+    ratings = pd.DataFrame.from_dict(st.session_state.ratings, orient='index', columns=['Rating'])
+    ratings.index.name = 'MovieID'
+    ratings.reset_index(inplace=True)
+
+    # Merge ratings with the similarity matrix
+    df = ratings.merge(sim, on='MovieID', how='inner')
+    df.set_index('MovieID', inplace=True)
+
+    # Compute the weighted average of wi*si
+    r = myIBCF(df, ratings['Rating'])
+
+    # Get the top 10 movies
+    top_movies = movies.merge(r, on='MovieID', how='inner').sort_values(by='Rating', ascending=False).head(10)
+
+    # Render the top 10 movies
+    cols = tab2.columns([2, 2, 2])
+    i=1                           
+    for _, row in top_movies.iterrows():
+        if (i) % 3 == 0:
+            tab2.write('---')
+        try:
+            cols[i % 3].image(f"./pages/images/{row.MovieID}.jpg")
+        except:
+            pass
+        cols[i % 3].write(f'{row.Title}')
+        i += 1
+
 
 # Indicate number of ratings
 st.sidebar.markdown("#### You rated")
