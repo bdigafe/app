@@ -245,3 +245,23 @@ if st.sidebar.button('Clear ratings'):
         st.session_state[k] = 0
     st.session_state.ratings = LimitedSizeList(cache_len=10)
     st.rerun()
+
+# Styling
+st.markdown("""
+<style>
+
+	.stTabs [data-baseweb="tab-list"] {
+		gap: 2px;
+    }
+
+	.stTabs [data-baseweb="tab"] {
+		height: 50px;
+        white-space: pre-wrap;
+		background-color: #F0F2F6;
+		border-radius: 4px 4px 0px 0px;
+		gap: 1px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+    }
+
+</style>""", unsafe_allow_html=True)
