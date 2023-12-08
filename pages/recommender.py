@@ -60,16 +60,14 @@ class LimitedSizeList():
         return None
     
     def __repr__(self):
-        # convert list of key-value pairs to dict
-        return json.dumps(self._list)
-    
+        # convert list of key-value pairs to dict   
         st = "{"
         for i in range(len(self._list)):
             kv = self._list[i]
-            st += f"{kv[0]} : {kv[1]}, \r" 
+            st += f"{kv[0]} : {kv[1]}," 
 
         st += "}"
-        return st
+        return json.dumps(json.to_json(st),ident=4)
 
 
 st.set_page_config(
