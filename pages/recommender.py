@@ -159,6 +159,7 @@ def render_movie_samples(sample_movies, st_parent):
             key=MovieID,
             on_change=save_rating,
             args=(row.MovieID,)
+        )
 
     # Create a mask with for values w where w is a nan
     wmask = w.copy()
