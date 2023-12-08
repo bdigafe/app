@@ -62,9 +62,12 @@ class LimitedSizeList():
     
     def __repr__(self):
         # convert list of key-value pairs to dict
-        st = ""
-        for kv in self._list:
-            st += f"{kv[0]}: {kv[1]}\n" 
+        st = "{"
+        for i in range(len(self._list)):
+            kv = self._list[i]
+            st += f"{kv[0]} : {kv[1]}, \n" 
+
+        st += "}"
         return st
 
 
