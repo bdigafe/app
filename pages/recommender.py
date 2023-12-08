@@ -100,8 +100,8 @@ def save_rating(key):
     
     rating = st.session_state[key]
     if rating == 0:
+        st.sidebar.write(f"Removing {key} from ratings")
         if key in st.session_state.ratings:
-            st.sidebar.write(f"Removing {key} from ratings")
             del st.session_state.ratings[key]
     else:
         st.session_state.ratings[key] = rating

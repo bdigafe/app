@@ -1,3 +1,6 @@
+import random
+
+
 class LimitedSizeList():
     """Dict with a limited length, ejecting LRUs as needed."""
 
@@ -61,7 +64,8 @@ class LimitedSizeList():
 ratings = LimitedSizeList(cache_len=10)
 
 for k in range(1, 15, 1):
-    ratings[k]= str(k)
+    l = random.randint(1, 100)
+    ratings[str(l)]= l
     
 print(ratings)
 
