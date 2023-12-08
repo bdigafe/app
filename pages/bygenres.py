@@ -60,7 +60,7 @@ genre = st.selectbox('Select Genres from the list', movies['Genres'].unique())
 # Render recommendation
 if st.button('Get Recommendations'):
     top_movies = get_top_movies_by_genre(movies, genre)
-    div = st.container(border=True)
+    div = st.container(border=False)
     render_movies(top_movies, div)
    
      
