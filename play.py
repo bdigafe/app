@@ -1,5 +1,5 @@
 import random
-
+import pickle
 
 class LimitedSizeList():
     """Dict with a limited length, ejecting LRUs as needed."""
@@ -72,5 +72,7 @@ print(ratings)
 
 del ratings[-1]
 ratings[999] = 999
-
 print(ratings)
+
+r = pickle.loads(pickle.dumps(ratings))
+print(r)

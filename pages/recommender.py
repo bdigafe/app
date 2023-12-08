@@ -43,6 +43,14 @@ class LimitedSizeList():
 
     def __iter__(self): 
         return self._list.__iter__()
+    
+    def __getstate__(self):
+        st.sidebar.write(f"gettState {self._list}")
+        return self.__dict__.copy()
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        st.sidebar.write(f"gettState {self._list}")
 
     def _set_item(self, key, value):
 
