@@ -249,6 +249,8 @@ if len(st.session_state.ratings) > 5:
         # Convert ratings to a dataframe
         r = get_user_recommendations(st.session_state.ratings, sim)
         render_user_recommendations(r, movies, tab2)
+else:
+    st.write("Rate at least 5 movies to get recommendations.")
 
 # Indicate number of ratings
 st.sidebar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
@@ -268,7 +270,7 @@ st.markdown("""
     }
             
     .block-container {
-        padding: 1rem;
+        padding-top: 2rem;
     }
 
 </style>""", unsafe_allow_html=True)
