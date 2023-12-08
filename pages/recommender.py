@@ -213,6 +213,8 @@ def render_user_recommendations(r, movies, st_parent):
         col_rating.write(f":bold[{row.Title}]")
         col_rating.write(f":bold[{row.Genres}]")
     
+        i+=1
+        
 # Main code
 
 # Initialize user ratings
