@@ -194,6 +194,24 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
+def render_user_recommendations(r, movies, st_parent):
+    # Join with movies to get the movie titles
+    r = r.to_frame()
+    r.columns = ['Rating']
+    r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
+    r.sort_values(by=['Rating'], inplace=True, ascending=False)
+    
+    cols = st_parent.columns([2, 2, 2])
+    i=1                           
+    for _, row in r.iterrows():
+        if (i) % 3 == 0:
+            st.write('---')
+        try:
+            cols[i % 3].image(f"./pages/images/{row.MovieID}.jpg")
+        except:
+            pass
+        cols[i % 3].write(f'{row.Title}')
+        i += 1
 
 # Main code
 
