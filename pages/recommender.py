@@ -118,11 +118,14 @@ def render_movie_samples(sample_movies, st_parent):
             cols = div.columns([2, 2, 2]) 
 
         col = cols[i % 3].container(border=True)
+        col_image = col.container(border=False)
+        col_rating = col.container(border=False)
+
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            col.image(url, caption=row.Title, width=185)
+            col_image.image(url, caption=row.Title, width=185)
         except:
-            col.write(row.Title)
+            col_image.write(row.Title)
   
         # MovieId
         MovieID = row.MovieID
@@ -131,7 +134,7 @@ def render_movie_samples(sample_movies, st_parent):
             value = st.session_state.ratings[MovieID]
 
         # Add Slider
-        col.slider(
+        col_rating.slider(
             label=':red[Rating]',
             label_visibility ='hidden',
             min_value=0,
