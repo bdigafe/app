@@ -97,18 +97,6 @@ def get_movie_samples(sim, movies, sample_size=200):
     sample_movies.columns = ['MovieID', 'Title', 'Genres', 'Rating']
     return sample_movies[['MovieID', 'Title', 'Genres']]
 
-    df = sim.copy()
-    df.fillna(0, inplace=True)
-    df['avg_rating'] = df.mean(axis=1)
-
-    # Get top movies by their average rating
-    df = df.sort_values(by='avg_rating', ascending=False).head(sample_size)
-    
-    # Merge with movies to get the movie titles
-    df = df.merge(movies, on='MovieID')
-    df = df[['MovieID', 'Title']]
-    return df
-
 def save_rating(key):
     if not key in st.session_state:
         return
@@ -116,7 +104,6 @@ def save_rating(key):
     rating = st.session_state[key]
     if rating == 0:
         if st.session_state.ratings[key] != None:
-            st.sidebar.write(f"Removing {key} from ratings")
             del st.session_state.ratings[key]
     else:
         st.session_state.ratings[int(key)] = rating
@@ -233,7 +220,7 @@ samples = get_movie_samples(sim, movies)
 st.subheader("Movie recommendations based on your ratings")
 st.markdown("Rate the movies below and click on the recommendation tab to get your recommendations.")
 
-tab1, tab2 = st.tabs(["Your ratings", "Recommendation"])
+tab1, tab2 = st.tabs(["Step 1: Your ratings", "Step 2: Recommendation"])
 if not DEBUG:
     render_movie_samples(samples, tab1)
 else:
@@ -245,22 +232,14 @@ else:
     r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
-tab2.markdown("### Your Recommendations")
 if st.button('Get Recommendations'):
     # Convert ratings to a dataframe
     r = get_user_recommendations(st.session_state.ratings, sim)
     render_user_recommendations(r, movies, tab2)
-    
 
 # Indicate number of ratings
-st.sidebar.markdown("#### You rated")
-st.sidebar.slider(
-    label='',
-    min_value=0,
-    max_value=10,
-    value=len(st.session_state.ratings),
-    disabled=True,
-    key='num_ratings',
-)
-
-#st.sidebar.text_area('Your ratings', st.session_state.ratings, height=120, disabled=True)
+st.sidebar.markdown(f"#### You rated {len(st.session_state.ratings)} movies out of 10.")
+if st.sidebar.button('Clear ratings'):
+    for k in st.session_state.ratings:
+        st.session_state[k] = 0
+    st.session_state.ratings = LimitedSizeList(cache_len=10)
