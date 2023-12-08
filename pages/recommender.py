@@ -199,15 +199,20 @@ def render_user_recommendations(r, movies, st_parent):
     cols = st_parent.columns([2, 2, 2])
     i=1                           
     for _, row in r.iterrows():
-        if (i) % 3 == 0:
-            st.write('---')
+        col = cols[i % 3].container(border=True)
+        col_image, col_rating= col.columns([1, 1])
+ 
+        # Image
+        url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            cols[i % 3].image(f"./pages/images/{row.MovieID}.jpg")
+            col_image.image(url, width=185)
         except:
             pass
-        cols[i % 3].write(f'{row.Title}')
-        i += 1
-
+  
+        # Title, Genres, and rating
+        col_rating.write(f":bold[{row.Title}]")
+        col_rating.write(f":bold[{row.Genres}]")
+    
 # Main code
 
 # Initialize user ratings
@@ -225,7 +230,7 @@ samples = get_movie_samples(sim, movies)
 
 # Render the samples
 st.subheader("Movie recommendations based on your ratings")
-st.markdown("Rate the movies below and click on the recommendation tab to get your recommendations.")
+st.markdown("Rate up to **10** movies (**minimum 5**) from the list below and click on the recommendation tab to get your recommendations.")
 
 tab1, tab2 = st.tabs(["Step 1: Your ratings", "Step 2: Recommendation"])
 if not DEBUG:
@@ -240,7 +245,7 @@ else:
 
 # Get the ratings
 if len(st.session_state.ratings) > 5:
-    if st.button('Get Recommendations'):
+    if tab2.button('Get Recommendations'):
         # Convert ratings to a dataframe
         r = get_user_recommendations(st.session_state.ratings, sim)
         render_user_recommendations(r, movies, tab2)
