@@ -50,7 +50,7 @@ class LimitedSizeList():
 
     def __setstate__(self, state):
         self.__dict__.update(state)
-        st.sidebar.write(f"gettState {self._list}")
+        st.sidebar.write(f"set State {self._list}")
 
     def _set_item(self, key, value):
 
