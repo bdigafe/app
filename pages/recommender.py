@@ -238,7 +238,7 @@ if st.button('Get Recommendations'):
     render_user_recommendations(r, movies, tab2)
 
 # Indicate number of ratings
-st.sidebar.markdown(f"#### You rated {len(st.session_state.ratings)} movies out of 10.")
+st.sidebar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
 if st.sidebar.button('Clear ratings'):
     for k in st.session_state.ratings:
         st.session_state[k] = 0
