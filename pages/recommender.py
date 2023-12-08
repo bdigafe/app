@@ -249,19 +249,9 @@ if st.sidebar.button('Clear ratings'):
 # Styling
 st.markdown("""
 <style>
-
-	.stTabs [data-baseweb="tab-list"] {
-		gap: 2px;
-    }
-
-	.stTabs [data-baseweb="tab"] {
-		height: 50px;
-        white-space: pre-wrap;
-		background-color: #F0F2F6;
-		border-radius: 4px 4px 0px 0px;
-		gap: 1px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+	.stTabs [data-baseweb="tab-panel"] {
+		height: 600px;
+        overflow-y: scroll;
     }
 
 </style>""", unsafe_allow_html=True)
