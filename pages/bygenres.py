@@ -28,14 +28,14 @@ def load_movies():
     return df
 
 @st.cache_data
-def get_top_movies_by_genre(df, genre):
+def get_top_movies_by_genre(df, genre, cols=2):
     return df[df['Genres'] == genre]
 
 def render_movies(r, st_parent):
-    cols = st_parent.columns([2, 2, 2])
+    cols = st_parent.columns([2] * cols)
     i=1                           
     for _, row in r.iterrows():
-        col = cols[i % 3].container(border=True)
+        col = cols[i % cols].container(border=True)
         col_image, col_rating= col.columns([1, 1])
  
         # Image

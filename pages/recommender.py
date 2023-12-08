@@ -110,47 +110,6 @@ def save_rating(key):
     
     st.session_state[key] = rating       
 
-def render_movie_samples__DELETE(sample_movies, st_parent):
-    i=0                     
-    for _, row in sample_movies.iterrows():
-        if (i) % 3 == 0:
-            div = st_parent.container() 
-            cols = div.columns([2, 2, 2]) 
-
-        col = cols[i % 3].container(border=True)
-        col_image, col_rating= col.columns([1, 1])
- 
-        # Image
-        url = f"./pages/images/{row.MovieID}.jpg"
-        try:
-            col_image.image(url, width=185)
-        except:
-            pass
-  
-        # Title, Genres, and rating
-        col_rating.write(f":bold[{row.Title}]")
-        col_rating.write(f"{row.Genres}")
-
-        MovieID = row.MovieID
-        value = 0
-        if MovieID in st.session_state.ratings:
-            value = st.session_state.ratings[MovieID]
-
-        # Add Slider
-        col_rating.write(f"Your Rating")
-        col_rating.slider(
-            label=':red[Rating]',
-            label_visibility ='hidden',
-            min_value=0,
-            max_value=5,
-            value=value,
-            step=1,
-            key=MovieID,
-            on_change=save_rating,
-            args=(row.MovieID, )
-        )
-        i += 1
-
 def myIBCF(S, w, t=None):
 
     # Create a mask with for values w where w is a nan
@@ -188,12 +147,12 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
-def render_movies_grid(r, st_parent, cols=3, show_rating_scale=False):
+def render_movies_grid(r, st_parent, cols=2, show_rating_scale=False):
     cols = st_parent.columns([2]*cols)
     i=1        
 
     for _, row in r.iterrows():
-        col = cols[i % 3].container(border=True)
+        col = cols[i % cols].container(border=True)
         col_image, col_rating= col.columns([1, 1])
  
         # Image
@@ -239,10 +198,10 @@ def render_user_recommendations(r, movies, st_parent):
     r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
     r.sort_values(by=['Rating'], inplace=True, ascending=False)
 
-    render_movies_grid(r, st_parent, cols=3, show_rating_scale=False)
+    render_movies_grid(r, st_parent, show_rating_scale=False)
 
 def render_movie_samples(sample_movies, st_parent):
-    render_movies_grid(sample_movies, st_parent, cols=3, show_rating_scale=True)
+    render_movies_grid(sample_movies, st_parent, show_rating_scale=True)
 
 # Main code
 
