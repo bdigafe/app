@@ -266,5 +266,9 @@ st.markdown("""
         overflow-y: scroll;
         scrollbar-width: auto;
     }
+            
+    .block-container {
+        padding: 1rem;
+    }
 
 </style>""", unsafe_allow_html=True)
