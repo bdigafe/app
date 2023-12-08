@@ -64,7 +64,7 @@ class LimitedSizeList():
         # convert list of key-value pairs to dict
         st = ""
         for kv in self._list:
-            st += f"{kv[0] : kv[1]}\n" 
+            st += f"{kv[0]}: {kv[1]}\n" 
         return st
 
 
