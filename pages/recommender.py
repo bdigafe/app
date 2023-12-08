@@ -118,9 +118,8 @@ def render_movie_samples(sample_movies, st_parent):
             cols = div.columns([2, 2, 2]) 
 
         col = cols[i % 3].container(border=True)
-        col_image = col.container(border=False)
-        col_rating = col.container(border=False)
-
+        col_image, col_rating= col.columns([1, 1])
+ 
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
             col_image.image(url, caption=row.Title, width=185)
