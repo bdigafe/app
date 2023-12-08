@@ -135,7 +135,7 @@ def render_movie_samples(sample_movies, st_parent):
 
         # Add Slider
         col.slider(
-            label='Rating',
+            label=':red[Rating]',
             label_visibility ='hidden',
             min_value=0,
             max_value=5,
