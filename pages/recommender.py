@@ -64,7 +64,7 @@ class LimitedSizeList():
         st = "{"
         for i in range(len(self._list)):
             kv = self._list[i]
-            st += f"{kv[0]} : {kv[1]}, \n" 
+            st += f"{kv[0]} : {kv[1]}, \r" 
 
         st += "}"
         return st
