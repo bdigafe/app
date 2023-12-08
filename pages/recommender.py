@@ -111,7 +111,7 @@ def save_rating(key):
             st.sidebar.write(f"Removing {key} from ratings")
             del st.session_state.ratings[key]
     else:
-        st.session_state.ratings[key] = rating
+        st.session_state.ratings[int(key)] = rating
     
     st.session_state[key] = rating
 
