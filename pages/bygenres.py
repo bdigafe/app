@@ -48,7 +48,8 @@ def render_movies(r, st_parent):
         # Title, Genres, and rating
         col_rating.write(f":bold[{row.Title}]")
         col_rating.write(f":bold[{row.Genres}]")
-
+    i+=1
+    
 # Load Top Movies
 movies = load_movies()
 
