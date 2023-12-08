@@ -279,7 +279,7 @@ if len(st.session_state.ratings) > 5:
     if tab2.button('Get Recommendations'):
         # Convert ratings to a dataframe
         r = get_user_recommendations(st.session_state.ratings, sim)
-        render_movies_grid(r, movies, tab2)
+        render_user_recommendations(r, movies, tab2)
 else:
     st.write("Rate at least 5 movies to get recommendations.")
 
