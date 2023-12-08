@@ -120,7 +120,7 @@ def render_movie_samples(sample_movies, st_parent):
         col = cols[i % 3].container(border=True)
         url = f"./pages/images/{row.MovieID}.jpg"
         try:
-            col.image(url, caption=row.Title, use_column_width=True)
+            col.image(url, caption=row.Title, width=185)
         except:
             col.write(row.Title)
   
