@@ -128,9 +128,8 @@ def render_movie_samples(sample_movies, st_parent):
             pass
   
         # Title, Genres, and rating
-        col_rating.write(f"Title: {row.Title}")
+        col_rating.write(f":bold[{row.Title}]")
         col_rating.write(f"Genres: {row.Genres}")
-
 
         MovieID = row.MovieID
         value = 0
@@ -260,6 +259,7 @@ st.markdown("""
 	.stTabs [data-baseweb="tab-panel"] {
 		height: 600px;
         overflow-y: scroll;
+        scrollbar-width: auto;
     }
 
 </style>""", unsafe_allow_html=True)
