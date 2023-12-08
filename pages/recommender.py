@@ -188,16 +188,10 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
-def render_movies_grid(r, movies, st_parent, cols=3, show_rating_scale=False):
-    # Join with movies to get the movie titles
-    r = r.head(10)
-    r = r.to_frame()
-    r.columns = ['Rating']
-    r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
-    r.sort_values(by=['Rating'], inplace=True, ascending=False)
-
+def render_movies_grid(r, st_parent, cols=3, show_rating_scale=False):
     cols = st_parent.columns([2]*cols)
-    i=1                           
+    i=1        
+
     for _, row in r.iterrows():
         col = cols[i % 3].container(border=True)
         col_image, col_rating= col.columns([1, 1])
@@ -237,10 +231,19 @@ def render_movies_grid(r, movies, st_parent, cols=3, show_rating_scale=False):
     
         i+=1
 
+def render_user_recommendations(r, movies, st_parent):
+    # Join with movies to get the movie titles
+    r = r.head(10)
+    r = r.to_frame()
+    r.columns = ['Rating']
+    r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
+    r.sort_values(by=['Rating'], inplace=True, ascending=False)
+
+    render_movies_grid(r, st_parent, cols=3, show_rating_scale=False)
 
 def render_movie_samples(sample_movies, st_parent):
     render_movies_grid(sample_movies, movies, st_parent, cols=3, show_rating_scale=False)
-    
+
 # Main code
 
 # Initialize user ratings
