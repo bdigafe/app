@@ -91,7 +91,7 @@ def load_movies():
     return movies
 
 @st.cache_data
-def get_movie_samples(sim, movies, sample_size=200):
+def get_movie_samples():
      # MovieID,Title, Genres, Rating
     sample_movies = pd.read_csv(f'./data/sample_movies.csv', sep=',')
     sample_movies.columns = ['MovieID', 'Title', 'Genres', 'Rating']
@@ -198,6 +198,7 @@ def render_user_recommendations(r, movies, st_parent):
     r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
     r.sort_values(by=['Rating'], inplace=True, ascending=False)
 
+    # Render the movies
     render_movies_grid(r, st_parent, show_rating_scale=False)
 
 def render_movie_samples(sample_movies, st_parent):
@@ -216,7 +217,7 @@ movies = load_movies()
 sim = load_top_sim(movies)
 
 # Get the movie samples
-samples = get_movie_samples(sim, movies)
+samples = get_movie_samples()
 
 # Render the samples
 st.subheader("Movie recommendations based on your ratings")

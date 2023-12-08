@@ -28,10 +28,10 @@ def load_movies():
     return df
 
 @st.cache_data
-def get_top_movies_by_genre(df, genre, grid_cols=2):
+def get_top_movies_by_genre(df, genre):
     return df[df['Genres'] == genre]
 
-def render_movies(r, st_parent):
+def render_movies(r, st_parent, grid_cols=2):
     cols = st_parent.columns([2] * grid_cols)
     i=1                           
     for _, row in r.iterrows():
