@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from collections import OrderedDict
+import json
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
 class LimitedSizeList():
@@ -61,6 +61,8 @@ class LimitedSizeList():
     
     def __repr__(self):
         # convert list of key-value pairs to dict
+        return json.dumps(self._list)
+    
         st = "{"
         for i in range(len(self._list)):
             kv = self._list[i]
