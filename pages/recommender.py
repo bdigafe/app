@@ -186,7 +186,7 @@ st_top_movies = st.expander("Recommendations", expanded=True)
 
 # Indicate number of ratings
 st.sidebar.slider(
-    label=':red[You have rated]',
+    label=':blue[You have rated]',
     min_value=1,
     max_value=10,
     value=len(st.session_state.ratings),
