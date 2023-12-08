@@ -31,25 +31,35 @@ def load_movies():
 def get_top_movies_by_genre(df, genre):
     return df[df['Genres'] == genre]
 
+def render_movies(r, st_parent):
+    cols = st_parent.columns([2, 2, 2])
+    i=1                           
+    for _, row in r.iterrows():
+        col = cols[i % 3].container(border=True)
+        col_image, col_rating= col.columns([1, 1])
+ 
+        # Image
+        url = f"./pages/images/{row.MovieID}.jpg"
+        try:
+            col_image.image(url, width=185)
+        except:
+            pass
+  
+        # Title, Genres, and rating
+        col_rating.write(f":bold[{row.Title}]")
+        col_rating.write(f":bold[{row.Genres}]")
+
 # Load Top Movies
 movies = load_movies()
 
 # Selection
-genre = st.selectbox('Select Genres', movies['Genres'].unique())
+genre = st.selectbox('Select Genres from the list', movies['Genres'].unique())
 
 # Render recommendation
 if st.button('Get Recommendations'):
     top_movies = get_top_movies_by_genre(movies, genre)
-    cols = st.columns([2, 2, 2])
-    i=1                           
-    for _, row in top_movies.iterrows():
-        if (i) % 3 == 0:
-            st.write('---')
-        try:
-            cols[i % 3].image(f'{row.image_url}')
-        except:
-            pass
-        cols[i % 3].write(f'{row.Title}')
-        i += 1
+    div = st.container(boarder=True)
+    render_movies(top_movies, div)
+   
      
     

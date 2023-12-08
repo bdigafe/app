@@ -23,13 +23,13 @@ st.markdown("""
             
     ### How to use this demo?
             
-    #### Option 1: Select a Genre and get your recommendations.
+    #### Option 1: Select a Genres and get your recommendations.
     
-    1. Select a genre from the dropdown on the left.
+    1. Select a genres from the dropdown on the left.
     2. Click the button to get your recommendations.
             
-    #### Option 2: Rate a movie and get your recommendations.
+    #### Option 2: Rate some movies and get your recommendations.
             
-    1. Rate few movies 
+    1. Rate up to 10 movies. You must rate at least 5 movies.
     2. Click the button to get your recommendations.  
     """)
