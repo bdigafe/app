@@ -58,6 +58,7 @@ class LimitedSizeList():
     
     def __repr__(self):
         # convert list of key-value pairs to dict
+        print(type(self._list))
         return repr(dict(self._list))
 
     

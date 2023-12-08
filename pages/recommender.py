@@ -37,15 +37,7 @@ class LimitedSizeList():
             self._list.remove(item)
 
     def __iter__(self): 
-        self.current = 0
-        return self
-    
-    def __next__(self):
-        if self.current >= len(self._list):
-            raise StopIteration
-        else:
-            self.current += 1
-            return self._list[self.current - 1]
+        return self._list.__iter__()
 
     def _set_item(self, key, value):
         data = self._list
@@ -70,7 +62,10 @@ class LimitedSizeList():
     
     def __repr__(self):
         # convert list of key-value pairs to dict
-        return repr(dict(self._list))
+        st = ""
+        for kv in self._list:
+            st += f"{kv[0] : kv[1]}\n" 
+        return st
 
 st.set_page_config(
     layout="wide",
