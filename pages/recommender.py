@@ -242,7 +242,7 @@ def render_user_recommendations(r, movies, st_parent):
     render_movies_grid(r, st_parent, cols=3, show_rating_scale=False)
 
 def render_movie_samples(sample_movies, st_parent):
-    render_movies_grid(sample_movies, movies, st_parent, cols=3, show_rating_scale=False)
+    render_movies_grid(sample_movies, st_parent, cols=3, show_rating_scale=False)
 
 # Main code
 
