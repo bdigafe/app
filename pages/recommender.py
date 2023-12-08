@@ -60,7 +60,14 @@ class LimitedSizeList():
         return None
     
     def __repr__(self):
-        # convert list of key-value pairs to dict   
+        # convert list of key-value pairs to dict
+        kv = self._list.to_dict()
+        
+        # convert dict to json
+        return json.dumps(kv, indent=4)
+
+
+
         st = "{"
         for i in range(len(self._list)):
             kv = self._list[i]
