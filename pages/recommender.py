@@ -232,10 +232,11 @@ else:
     r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
-if st.button('Get Recommendations'):
-    # Convert ratings to a dataframe
-    r = get_user_recommendations(st.session_state.ratings, sim)
-    render_user_recommendations(r, movies, tab2)
+if len(st.session_state.ratings) > 5:
+    if st.button('Get Recommendations'):
+        # Convert ratings to a dataframe
+        r = get_user_recommendations(st.session_state.ratings, sim)
+        render_user_recommendations(r, movies, tab2)
 
 # Indicate number of ratings
 st.sidebar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
