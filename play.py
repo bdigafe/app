@@ -65,11 +65,11 @@ ratings = LimitedSizeList(cache_len=10)
 
 for k in range(1, 15, 1):
     l = random.randint(1, 100)
-    ratings[str(l)]= l
+    ratings[l]= l
     
 print(ratings)
 
 del ratings[-1]
-ratings[15] = '15'
+ratings[999] = 999
 
 print(ratings)

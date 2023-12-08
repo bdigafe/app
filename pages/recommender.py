@@ -37,7 +37,15 @@ class LimitedSizeList():
             self._list.remove(item)
 
     def __iter__(self): 
-        return self._list.__iter__()
+        self.current = 0
+        return self
+    
+    def __next__(self):
+        if self.current >= len(self._list):
+            raise StopIteration
+        else:
+            self.current += 1
+            return self._list[self.current - 1]
 
     def _set_item(self, key, value):
         data = self._list
