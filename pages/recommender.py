@@ -29,12 +29,7 @@ class LimitedSizeList():
         return None
     
     def __setitem__(self, key, value):
-        if value == 5:
-            st.sidebar.write(f"Before {st.session_state.ratings}")
-
         self._set_item(key, value)
-        if value == 5:
-            st.sidebar.write(f"After {st.session_state.ratings}")
 
     def __delitem__(self, key):
         item  = self._get_item(key)
@@ -44,14 +39,6 @@ class LimitedSizeList():
     def __iter__(self): 
         return self._list.__iter__()
     
-    def __getstate__(self):
-        st.sidebar.write(f"gettState {self._list}")
-        return self.__dict__.copy()
-
-    def __setstate__(self, state):
-        self.__dict__.update(state)
-        st.sidebar.write(f"set State {self._list}")
-
     def _set_item(self, key, value):
 
         item = self._get_item(key)
@@ -77,7 +64,7 @@ class LimitedSizeList():
         st = "{"
         for i in range(len(self._list)):
             kv = self._list[i]
-            st += f"{kv[0]} : {kv[1]}, \n" 
+            st += f"{kv[0]} : {kv[1]}, \n\r" 
 
         st += "}"
         return st
@@ -189,8 +176,6 @@ def myIBCF(S, w, t=None):
 # Initialize user ratings
 if 'ratings' not in st.session_state:
     st.session_state.ratings = LimitedSizeList(cache_len=10)
-    st.session_state.ratings[3951] = 4
-    st.session_state.ratings[3952] = 1
 
 # Load Movies
 movies = load_movies()
