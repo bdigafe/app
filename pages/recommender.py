@@ -92,6 +92,11 @@ def load_movies():
 
 @st.cache_data
 def get_movie_samples(sim, movies, sample_size=200):
+     # MovieID,Title, Genres, Rating
+    sample_movies = pd.read_csv(f'./data/sample_movies.csv', sep='::', engine = 'python', encoding="ISO-8859-1", header = None)
+    sample_movies.columns = ['MovieID', 'Title', 'Genres']
+    return sample_movies
+
     df = sim.copy()
     df.fillna(0, inplace=True)
     df['avg_rating'] = df.mean(axis=1)
@@ -215,9 +220,9 @@ if not DEBUG:
 else:
     # debugging
     ratings = LimitedSizeList(cache_len=10)
-    ratings[3952] = 3
-    ratings[3950] = 4
-    ratings[3950] = 4
+    ratings[3952] = 5
+    ratings[3951] = 4
+    ratings[3950] = 3
     r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
