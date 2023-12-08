@@ -67,6 +67,7 @@ class LimitedSizeList():
             st += f"{kv[0] : kv[1]}\n" 
         return st
 
+
 st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
