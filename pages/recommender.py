@@ -192,8 +192,10 @@ render_movie_samples(samples, st_movies_ratings)
 st_top_movies = st.expander("Recommendations", expanded=True)
 
 # Indicate number of ratings
+st.sidebar.divider()
+st.sidebar.markdown("### Your Ratings")
 st.sidebar.slider(
-    label=':red[You have rated]',
+    label='',
     min_value=1,
     max_value=10,
     value=len(st.session_state.ratings),
@@ -201,4 +203,4 @@ st.sidebar.slider(
     key='num_ratings',
 )
 
-st.sidebar.text_area('Your ratings', st.session_state.ratings, height=120, disabled=True)
+#st.sidebar.text_area('Your ratings', st.session_state.ratings, height=120, disabled=True)
