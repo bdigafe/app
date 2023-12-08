@@ -200,7 +200,7 @@ def render_user_recommendations(r, movies, st_parent):
     r.columns = ['Rating']
     r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
     r.sort_values(by=['Rating'], inplace=True, ascending=False)
-    
+
     cols = st_parent.columns([2, 2, 2])
     i=1                           
     for _, row in r.iterrows():
@@ -248,19 +248,8 @@ tab2.markdown("### Your Recommendations")
 if st.button('Get Recommendations'):
     # Convert ratings to a dataframe
     r = get_user_recommendations(st.session_state.ratings, sim)
-
-    # Render the top 10 movies
-    cols = tab2.columns([2, 2, 2])
-    i=1                           
-    for _, row in r.iterrows():
-        if (i) % 3 == 0:
-            tab2.write('---')
-        try:
-            cols[i % 3].image(f"./pages/images/{row.MovieID}.jpg")
-        except:
-            pass
-        cols[i % 3].write(f'{row.Title}')
-        i += 1
+    render_user_recommendations(r, movies, tab2)
+    
 
 # Indicate number of ratings
 st.sidebar.markdown("#### You rated")
