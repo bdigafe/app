@@ -147,12 +147,12 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
-def render_movies_grid(r, st_parent, cols=2, show_rating_scale=False):
-    cols = st_parent.columns([2]*cols)
+def render_movies_grid(r, st_parent, grid_cols=2, show_rating_scale=False):
+    cols = st_parent.columns([2]*grid_cols)
     i=1        
 
     for _, row in r.iterrows():
-        col = cols[i % cols].container(border=True)
+        col = cols[i % grid_cols].container(border=True)
         col_image, col_rating= col.columns([1, 1])
  
         # Image
