@@ -110,7 +110,7 @@ def save_rating(key):
     
     st.session_state[key] = rating       
 
-def render_movie_samples(sample_movies, st_parent):
+def render_movie_samples__DELETE(sample_movies, st_parent):
     i=0                     
     for _, row in sample_movies.iterrows():
         if (i) % 3 == 0:
@@ -188,7 +188,7 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
-def render_user_recommendations(r, movies, st_parent):
+def render_movies_grid(r, movies, st_parent, cols=3, show_rating_scale=False):
     # Join with movies to get the movie titles
     r = r.head(10)
     r = r.to_frame()
@@ -196,7 +196,7 @@ def render_user_recommendations(r, movies, st_parent):
     r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
     r.sort_values(by=['Rating'], inplace=True, ascending=False)
 
-    cols = st_parent.columns([2, 2, 2])
+    cols = st_parent.columns([2]*cols)
     i=1                           
     for _, row in r.iterrows():
         col = cols[i % 3].container(border=True)
@@ -212,9 +212,35 @@ def render_user_recommendations(r, movies, st_parent):
         # Title, Genres, and rating
         col_rating.write(f":bold[{row.Title}]")
         col_rating.write(f":bold[{row.Genres}]")
+
+        if show_rating_scale:
+            MovieID = row.MovieID
+            value = 0
+
+            if MovieID in st.session_state.ratings:
+                value = st.session_state.ratings[MovieID]
+
+            # Add Slider
+            col_rating.write(f"Your Rating")
+
+            col_rating.slider(
+                label=':red[Rating]',
+                label_visibility ='hidden',
+                min_value=0,
+                max_value=5,
+                value=value,
+                step=1,
+                key=MovieID,
+                on_change=save_rating,
+                args=(row.MovieID, )
+        )
     
         i+=1
 
+
+def render_movie_samples(sample_movies, st_parent):
+    render_movies_grid(sample_movies, movies, st_parent, cols=3, show_rating_scale=False)
+    
 # Main code
 
 # Initialize user ratings
@@ -250,7 +276,7 @@ if len(st.session_state.ratings) > 5:
     if tab2.button('Get Recommendations'):
         # Convert ratings to a dataframe
         r = get_user_recommendations(st.session_state.ratings, sim)
-        render_user_recommendations(r, movies, tab2)
+        render_movies_grid(r, movies, tab2)
 else:
     st.write("Rate at least 5 movies to get recommendations.")
 
@@ -267,7 +293,7 @@ st.markdown("""
 <style>
 	.stTabs [data-baseweb="tab-panel"] {
 		height: 600px;
-        overflow-y: scroll;
+        overflow: scroll;
         scrollbar-width: auto;
     }
             

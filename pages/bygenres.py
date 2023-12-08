@@ -64,4 +64,17 @@ if st.button('Get Recommendations'):
     render_movies(top_movies, div)
    
      
-    
+# Styling
+st.markdown("""
+<style>
+	.stTabs [data-baseweb="tab-panel"] {
+		height: 600px;
+        overflow: scroll;
+        scrollbar-width: auto;
+    }
+            
+    .block-container {
+        padding-top: 2rem;
+    }
+
+</style>""", unsafe_allow_html=True)
