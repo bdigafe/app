@@ -45,7 +45,10 @@ if st.button('Get Recommendations'):
     for _, row in top_movies.iterrows():
         if (i) % 3 == 0:
             st.write('---')
-        cols[i % 3].image(f'{row.image_url}')
+        try:
+            cols[i % 3].image(f'{row.image_url}')
+        except:
+            pass
         cols[i % 3].write(f'{row.Title}')
         i += 1
      

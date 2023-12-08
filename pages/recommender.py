@@ -125,7 +125,7 @@ def render_movie_samples(sample_movies, st_parent):
         try:
             col.image(url, caption=row.Title)
         except:
-            pass
+            col.write(row.Title)
   
         # MovieId
         MovieID = row.MovieID
@@ -186,18 +186,16 @@ samples = get_movie_samples(sim, movies)
 
 # Render the samples
 st.subheader("Movie recommendations based on your ratings")
-st.markdown("Rate the movies below and click on the recommendation tab and button to get your recommendations.")
+st.markdown("Rate the movies below and click on the recommendation tab to get your recommendations.")
 
 tab1, tab2 = st.tabs(["Your ratings", "Recommendation"])
-
 render_movie_samples(samples, tab1)
 
 # Get the ratings
 tab2.markdown("### Your Recommendations")
 
 # Indicate number of ratings
-st.sidebar.divider()
-st.sidebar.markdown("### Your Ratings")
+st.sidebar.markdown("#### You rated")
 st.sidebar.slider(
     label='',
     min_value=0,
