@@ -78,6 +78,7 @@ st.set_page_config(
 @st.cache_data
 def load_top_sim(movies):
     sim = pd.read_csv('./data/top_sim.csv')
+    sim.set_index('MovieID', inplace=True)
     return sim
 
 @st.cache_data
@@ -98,7 +99,8 @@ def get_movie_samples(sim, movies, sample_size=200):
     
     # Merge with movies to get the movie titles
     df = df.merge(movies, on='MovieID')
-    return df[['MovieID', 'Title']]
+    df = df[['MovieID', 'Title']]
+    return df
 
 def save_rating(key):
     if not key in st.session_state:
@@ -165,23 +167,23 @@ def myIBCF(S, w, t=None):
     r = R/D
 
     # Remove movies that have already been rated
-    r.loc[wu > 0] = np.nan
+    r[wu.iloc[:,0] > 0] = np.nan
 
     # return the movie ids with the top 10 ratings
     return r.sort_values(ascending=False)
 
-def get_user_recommendations(ratings, movies, sim):
-    # Convert ratings to a dataframe
-    ratings = pd.DataFrame.from_dict(ratings, orient='index', columns=['Rating'])
-    ratings.index.name = 'MovieID'
-    ratings.reset_index(inplace=True)
+def get_user_recommendations(user_ratings, sim):
+    # Setup weights matrix
+    w = sim.index.to_frame()
+    w["Rating"] = np.nan
+    w.set_index('MovieID', inplace=True)
 
-    # Merge ratings with the similarity matrix
-    df = movies.merge(ratings, on='MovieID', how='inner')
-    df.set_index('MovieID', inplace=True)
+    # Add user ratings to the weights matrix
+    for k, v in user_ratings.to_dict().items():
+        w.loc[k] = v
 
-    # Compute the weighted average of wi*si
-    r = myIBCF(df['Rating'], sim)
+    # Compute the weighted average of wi*m
+    r = myIBCF(sim, w)
 
     return r
     
@@ -207,13 +209,20 @@ st.subheader("Movie recommendations based on your ratings")
 st.markdown("Rate the movies below and click on the recommendation tab to get your recommendations.")
 
 tab1, tab2 = st.tabs(["Your ratings", "Recommendation"])
-render_movie_samples(samples, tab1)
+#render_movie_samples(samples, tab1)
+
+# debugging
+ratings = LimitedSizeList(cache_len=10)
+ratings[3952] = 3
+ratings[3950] = 4
+ratings[3950] = 4
+r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
 tab2.markdown("### Your Recommendations")
 if st.button('Get Recommendations'):
     # Convert ratings to a dataframe
-    r = get_user_recommendations(st.session_state.ratings, movies, sim)
+    r = get_user_recommendations(st.session_state.ratings, sim)
 
     # Render the top 10 movies
     cols = tab2.columns([2, 2, 2])
