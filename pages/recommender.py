@@ -157,11 +157,8 @@ def render_movie_samples(sample_movies, st_parent):
             value=value,
             step=1,
             key=MovieID,
-            on_change=save_rating
-        )
-        i += 1
-
-def myIBCF(S, w, t=None):
+            on_change=save_rating,
+            args=(row.MovieID,)
 
     # Create a mask with for values w where w is a nan
     wmask = w.copy()
