@@ -196,6 +196,7 @@ def get_user_recommendations(user_ratings, sim):
 
 def render_user_recommendations(r, movies, st_parent):
     # Join with movies to get the movie titles
+    r = r.head(10)
     r = r.to_frame()
     r.columns = ['Rating']
     r = r.merge(movies, on='MovieID', how='inner', suffixes=("", "_y"),)
