@@ -157,7 +157,7 @@ def render_movie_samples(sample_movies, st_parent):
             value=value,
             step=1,
             key=MovieID,
-            on_change=save_rating(MovieID)
+            on_change=save_rating
         )
         i += 1
 
