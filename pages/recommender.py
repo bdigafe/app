@@ -175,6 +175,8 @@ def myIBCF(S, w, t=None):
 # Initialize user ratings
 if 'ratings' not in st.session_state:
     st.session_state.ratings = LimitedSizeList(cache_len=10)
+    st.session_state.ratings[3951] = 4
+    st.session_state.ratings[3952] = 1
 
 # Load Movies
 movies = load_movies()
