@@ -23,7 +23,7 @@ st.markdown("""
             
     ### How to use this demo?
             
-    #### Option 1: Select a Genres and get your recommendations.
+    #### Option 1: Select a genre and get your recommendations.
     
     1. Select a genres from the dropdown on the left.
     2. Click the button to get your recommendations.

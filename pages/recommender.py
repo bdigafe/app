@@ -129,7 +129,7 @@ def render_movie_samples(sample_movies, st_parent):
   
         # Title, Genres, and rating
         col_rating.write(f":bold[{row.Title}]")
-        col_rating.write(f"Genres: {row.Genres}")
+        col_rating.write(f"{row.Genres}")
 
         MovieID = row.MovieID
         value = 0
@@ -214,7 +214,7 @@ def render_user_recommendations(r, movies, st_parent):
         col_rating.write(f":bold[{row.Genres}]")
     
         i+=1
-        
+
 # Main code
 
 # Initialize user ratings
