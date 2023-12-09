@@ -13,6 +13,8 @@ st.set_page_config(
     page_icon="🎬"
 )
 
+DEF_GRID_COLS = 2
+
 @st.cache_data
 def load_movies():
     # Movies: MovieID::Title::Genres
@@ -31,7 +33,12 @@ def load_movies():
 def get_top_movies_by_genre(df, genre):
     return df[df['Genres'] == genre]
 
-def render_movies(r, st_parent, grid_cols=2):
+def render_movies(r, st_parent):
+
+    # Determine the number of columns per row
+    grid_cols = def_grid_cols
+
+
     cols = st_parent.columns([2] * grid_cols)
     i=1                           
     for _, row in r.iterrows():

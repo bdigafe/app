@@ -1,9 +1,13 @@
-import streamlit as st
 import pandas as pd
 import numpy as np
 import json
+import streamlit as st
 
+# Allow debugging: set sample data and avoid some streamlit functions. 
 DEBUG = False
+
+# Number of movies to show per row
+DEF_GRID_COLS = 2
 
 # From: https://gist.github.com/davesteele/44793cd0348f59f8fadd49d7799bd306
 class LimitedSizeList():
@@ -147,7 +151,11 @@ def get_user_recommendations(user_ratings, sim):
 
     return r 
 
-def render_movies_grid(r, st_parent, grid_cols=2, show_rating_scale=False):
+def render_movies_grid(r, st_parent, show_rating_scale=False):
+
+    # Determine the number of columns per row
+    grid_cols = DEF_GRID_COLS
+
     cols = st_parent.columns([2]*grid_cols)
     i=1        
 
@@ -235,10 +243,12 @@ else:
     r = get_user_recommendations(ratings, sim)
 
 # Get the ratings
-if len(st.session_state.ratings) > 5:
+if len(st.session_state.ratings) >= 5:
     if tab2.button('Get Recommendations'):
         # Convert ratings to a dataframe
         r = get_user_recommendations(st.session_state.ratings, sim)
+
+        # render
         render_user_recommendations(r, movies, tab2)
 else:
     st.write("Rate at least 5 movies to get recommendations.")
