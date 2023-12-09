@@ -154,7 +154,7 @@ def get_user_recommendations(user_ratings, sim):
 def render_movies_grid(r, st_parent, show_rating_scale=False):
 
     # Determine the number of columns per row
-    grid_cols = DEF_GRID_COLS
+    grid_cols = st.session_state.grid_cols
 
     cols = st_parent.columns([2]*grid_cols)
     i=1        
@@ -212,6 +212,10 @@ def render_user_recommendations(r, movies, st_parent):
 def render_movie_samples(sample_movies, st_parent):
     render_movies_grid(sample_movies, st_parent, show_rating_scale=True)
 
+def set_grid_size():
+    st.session_state.grid_cols = st.session_state.grid_cols
+    st.rerun()
+
 # Main code
 
 # Initialize user ratings
@@ -251,7 +255,7 @@ if len(st.session_state.ratings) >= 5:
         # render
         render_user_recommendations(r, movies, tab2)
 else:
-    st.write("Rate at least 5 movies to get recommendations.")
+    tab2.write("Rate at least 5 movies to get recommendations.")
 
 # Indicate number of ratings
 st.sidebar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
@@ -260,6 +264,11 @@ if st.sidebar.button('Clear ratings'):
         st.session_state[k] = 0
     st.session_state.ratings = LimitedSizeList(cache_len=10)
     st.rerun()
+
+# Grid size
+if 'grid_cols' not in st.session_state:
+    st.session_state.grid_cols = DEF_GRID_COLS
+st.sidebar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
 
 # Styling
 st.markdown("""
