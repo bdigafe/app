@@ -12,6 +12,7 @@ show_pages(
         Page("main-page.py", "Home", "🏠"),
         Page("pages/bygenres.py", "Recommender By Genre"),
         Page("pages/recommender.py", "Recommender By Rating"),
+        Section("", )
     ]
 )
 

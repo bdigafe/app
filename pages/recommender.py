@@ -219,6 +219,7 @@ def set_grid_size():
 # Main code
 userSiderbar = st.sidebar.container()
 settingsSiderbar = st.sidebar.container()
+settingsSiderbar.divider()
 
 # Grid size
 if 'grid_cols' not in st.session_state:
