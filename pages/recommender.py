@@ -218,6 +218,12 @@ def set_grid_size():
 
 # Main code
 
+# Grid size
+if 'grid_cols' not in st.session_state:
+    st.session_state.grid_cols = DEF_GRID_COLS
+st.sidebar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
+
+
 # Initialize user ratings
 if 'ratings' not in st.session_state:
     st.session_state.ratings = LimitedSizeList(cache_len=10)
@@ -265,10 +271,6 @@ if st.sidebar.button('Clear ratings'):
     st.session_state.ratings = LimitedSizeList(cache_len=10)
     st.rerun()
 
-# Grid size
-if 'grid_cols' not in st.session_state:
-    st.session_state.grid_cols = DEF_GRID_COLS
-st.sidebar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
 
 # Styling
 st.markdown("""
