@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from streamlit_js_eval import streamlit_js_eval
 
 # Movies column_config
 movies_column_config = {
@@ -15,13 +14,6 @@ st.set_page_config(
 )
 
 DEF_GRID_COLS = 2
-windowSize = streamlit_js_eval(js_expressions='window.innerWidth',  want_output = True, key = 'SCR')
-
-if windowSize is not None:
-    if windowSize > 1200:
-        DEF_GRID_COLS = 3
-    if windowSize > 1800:
-        DEF_GRID_COLS = 4
 
 @st.cache_data
 def load_movies():
@@ -44,7 +36,7 @@ def get_top_movies_by_genre(df, genre):
 def render_movies(r, st_parent):
 
     # Determine the number of columns per row
-    grid_cols = DEF_GRID_COLS
+    grid_cols =  st.session_state.grid_cols
 
     cols = st_parent.columns([2] * grid_cols)
     i=1                           
@@ -64,6 +56,17 @@ def render_movies(r, st_parent):
         col_rating.write(f":bold[{row.Genres}]")
     
         i+=1
+
+# Main
+
+# Mini-layout
+userSiderbar = st.sidebar.container()
+settingsSiderbar = st.sidebar.container()
+
+# Grid size
+if 'grid_cols' not in st.session_state:
+    st.session_state.grid_cols = DEF_GRID_COLS
+settingsSiderbar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
 
 # Load Top Movies
 movies = load_movies()

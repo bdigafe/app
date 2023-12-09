@@ -217,12 +217,13 @@ def set_grid_size():
     st.rerun()
 
 # Main code
+userSiderbar = st.sidebar.container()
+settingsSiderbar = st.sidebar.container()
 
 # Grid size
 if 'grid_cols' not in st.session_state:
     st.session_state.grid_cols = DEF_GRID_COLS
-st.sidebar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
-
+settingsSiderbar.selectbox('Grid size', options=[2, 3, 4], key="grid_cols")
 
 # Initialize user ratings
 if 'ratings' not in st.session_state:
@@ -264,8 +265,8 @@ else:
     tab2.write("Rate at least 5 movies to get recommendations.")
 
 # Indicate number of ratings
-st.sidebar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
-if st.sidebar.button('Clear ratings'):
+userSiderbar.markdown(f"#### You rated :red[{len(st.session_state.ratings)}] movies out of 10.")
+if userSiderbar.button('Clear ratings'):
     for k in st.session_state.ratings:
         st.session_state[k] = 0
     st.session_state.ratings = LimitedSizeList(cache_len=10)
