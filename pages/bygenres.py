@@ -15,7 +15,13 @@ st.set_page_config(
 )
 
 DEF_GRID_COLS = 2
-st.write(streamlit_js_eval(js_expressions='window.innerWidth',  want_output = True, key = 'SCR'))
+windowSize = streamlit_js_eval(js_expressions='window.innerWidth',  want_output = True, key = 'SCR')
+
+if windowSize is not None:
+    if windowSize > 1200:
+        DEF_GRID_COLS = 3
+    if windowSize > 1800:
+        DEF_GRID_COLS = 4
 
 @st.cache_data
 def load_movies():
