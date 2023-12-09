@@ -81,7 +81,7 @@ st.markdown("""
     }
             
     .block-container {
-        padding-top: 2rem;
+        padding-top: 2.5rem;
     }
 
 </style>""", unsafe_allow_html=True)
