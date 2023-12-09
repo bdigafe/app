@@ -10,9 +10,8 @@ st.set_page_config(
 show_pages(
     [
         Page("main-page.py", "Home", "🏠"),
-        Section(name="Recommender System", icon="🎬"),
-        Page("pages/bygenres.py", "Recommender By Genre"),
-        Page("pages/recommender.py", "Recommender By Rating"),
+        Page("pages/bygenres.py", "Recommender By Genre", icon="🎬"),
+        Page("pages/recommender.py", "Recommender By Rating", icon="🎬"),
     ]
 )
 
