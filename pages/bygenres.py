@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import streamlit_js_eval
 
 # Movies column_config
 movies_column_config = {
@@ -14,6 +15,7 @@ st.set_page_config(
 )
 
 DEF_GRID_COLS = 2
+st.write(streamlit_js_eval(js_expressions='window.innerWidth', key = 'SCR'))
 
 @st.cache_data
 def load_movies():
