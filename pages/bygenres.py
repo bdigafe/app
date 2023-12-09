@@ -36,8 +36,11 @@ def get_top_movies_by_genre(df, genre):
 def render_movies(r, st_parent):
 
     # Determine the number of columns per row
-    grid_cols =  st.session_state.grid_cols
-
+    try:
+        grid_cols =  st.session_state.grid_cols
+    except:
+        grid_cols = DEF_GRID_COLS
+        
     cols = st_parent.columns([2] * grid_cols)
     i=1                           
     for _, row in r.iterrows():

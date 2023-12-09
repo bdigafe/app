@@ -154,7 +154,10 @@ def get_user_recommendations(user_ratings, sim):
 def render_movies_grid(r, st_parent, show_rating_scale=False):
 
     # Determine the number of columns per row
-    grid_cols = st.session_state.grid_cols
+    try:
+        grid_cols =  st.session_state.grid_cols
+    except:
+        grid_cols = DEF_GRID_COLS
 
     cols = st_parent.columns([2]*grid_cols)
     i=1        
