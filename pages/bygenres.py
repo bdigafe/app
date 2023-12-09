@@ -36,8 +36,7 @@ def get_top_movies_by_genre(df, genre):
 def render_movies(r, st_parent):
 
     # Determine the number of columns per row
-    grid_cols = def_grid_cols
-
+    grid_cols = DEF_GRID_COLS
 
     cols = st_parent.columns([2] * grid_cols)
     i=1                           
@@ -82,6 +81,10 @@ st.markdown("""
             
     .block-container {
         padding-top: 2.5rem;
+    }
+
+    section [data-testid="stSidebar"] {
+        width: 150x;
     }
 
 </style>""", unsafe_allow_html=True)
